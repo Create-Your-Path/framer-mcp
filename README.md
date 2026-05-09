@@ -1,18 +1,42 @@
 # Framer MCP Server
 
-MCP server for the [Framer Server API](https://www.framer.com/developers/server-api-introduction) — full CMS, canvas, publishing, styles, code files, and more. 37 tools across 10 domains.
+MCP server for the [Framer Server API](https://www.framer.com/developers/server-api-introduction) — lets your AI agent manage Framer CMS, pages, canvas nodes, publishing, styles, code files, and more.
 
-## Security
+An MCP server is a small tool that gives AI agents access to external apps through structured tools. This one runs locally on your machine and connects your AI agent to your own Framer project through Framer's official Server API. It does not send your Framer data or API key to me or to Create Your Path.
 
-This MCP server runs locally over stdio and uses your own Framer API key from environment variables. It does not ship with an API key and does not store credentials.
+I built this because I wanted my agent to work on my Framer site without needing Framer open. This lets the agent manage content and a lot of the operational site work, while I can focus more on designing cool websites.
 
-Keep these rules in mind:
+The idea came after Framer released the [Server API](https://www.framer.com/updates/server-api) in February 2026. I used Anthropic's official [mcp-builder skill](https://github.com/anthropics/skills/tree/main/skills/mcp-builder) with Claude Code to wrap the [Framer Server API](https://www.framer.com/developers/server-api-introduction) as an MCP server.
 
-- Never commit `.env`, `.env.local`, `.mcp.json`, or any file containing `FRAMER_API_KEY`.
-- Use a dedicated Framer API key for automation and rotate it if it is ever exposed.
-- Only connect this MCP to Framer projects you own or are authorized to manage.
-- Treat write tools as production-capable: this server can create, update, remove, publish, and deploy Framer project content.
-- Do not give untrusted agents access to a production project key.
+## Agent install prompt
+
+Copy this into your coding agent if you want it to install the MCP for you:
+
+```text
+Install the Framer MCP server from https://github.com/Create-Your-Path/framer-mcp and connect it to my MCP client.
+
+Steps:
+1. Check that Node.js 22 or newer is installed.
+2. Clone the repository into a sensible local developer tools folder.
+3. Run npm install.
+4. Run npm run build.
+5. Ask me for my Framer project URL and Framer API key if I have not already provided them.
+6. Add an MCP server named "framer" to my MCP config using:
+   command: node
+   args: ["/absolute/path/to/framer-mcp/dist/bin/framer-mcp.js"]
+   env:
+     FRAMER_PROJECT_URL: my Framer project URL
+     FRAMER_API_KEY: my Framer API key
+7. Do not print, log, or expose my Framer API key.
+8. Restart or tell me to restart the MCP client.
+9. Verify the server by calling the framer_status tool.
+```
+
+## Context usage
+
+This MCP server exposes a lot of tools. It is not optimized for context efficiency yet, so sessions where this MCP is connected may load many tool definitions and use valuable agent context.
+
+If you only need Framer access sometimes, a practical workaround is to configure this MCP only in a dedicated folder, for example a folder named `Framer`, and start Claude Code, Codex, or your other agent from that folder only when you want it to work on your Framer site.
 
 ## Setup
 
@@ -64,30 +88,6 @@ Restart your MCP client after saving the config.
 
 ```bash
 FRAMER_PROJECT_URL="..." FRAMER_API_KEY="..." node dist/bin/framer-mcp.js
-```
-
-## Agent install prompt
-
-Copy this into your coding agent if you want it to install the MCP for you:
-
-```text
-Install the Framer MCP server from https://github.com/Create-Your-Path/framer-mcp and connect it to my MCP client.
-
-Steps:
-1. Check that Node.js 22 or newer is installed.
-2. Clone the repository into a sensible local developer tools folder.
-3. Run npm install.
-4. Run npm run build.
-5. Ask me for my Framer project URL and Framer API key if I have not already provided them.
-6. Add an MCP server named "framer" to my MCP config using:
-   command: node
-   args: ["/absolute/path/to/framer-mcp/dist/bin/framer-mcp.js"]
-   env:
-     FRAMER_PROJECT_URL: my Framer project URL
-     FRAMER_API_KEY: my Framer API key
-7. Do not commit, print, log, or expose my Framer API key.
-8. Restart or tell me to restart the MCP client.
-9. Verify the server by calling the framer_status tool.
 ```
 
 ## Tools (37)
@@ -155,22 +155,6 @@ Steps:
 - **Connection**: Lazy auto-connect on first tool call
 - **SDK**: `framer-api` (WebSocket) + `@modelcontextprotocol/sdk`
 - **Language**: TypeScript with Zod validation
-
-## Development
-
-```bash
-npm install
-npm run build
-npm run dev  # watch mode
-```
-
-Before publishing a package or release:
-
-```bash
-npm audit --omit=dev
-npm run build
-npm pack --dry-run
-```
 
 ## License
 
