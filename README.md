@@ -8,6 +8,11 @@ I built this because I wanted my agent to work on my Framer site without needing
 
 The idea came after Framer released the [Server API](https://www.framer.com/updates/server-api) in February 2026. I used Anthropic's official [mcp-builder skill](https://github.com/anthropics/skills/tree/main/skills/mcp-builder) with Claude Code to wrap the [Framer Server API](https://www.framer.com/developers/server-api-introduction) as an MCP server.
 
+I hope it helps and you have fun with it.
+
+Best,  
+Max
+
 ## Agent install prompt
 
 Copy this into your coding agent if you want it to install the MCP for you:
@@ -155,6 +160,22 @@ FRAMER_PROJECT_URL="..." FRAMER_API_KEY="..." node dist/bin/framer-mcp.js
 - **Connection**: Lazy auto-connect on first tool call
 - **SDK**: `framer-api` (WebSocket) + `@modelcontextprotocol/sdk`
 - **Language**: TypeScript with Zod validation
+
+## Contact
+
+If you have any questions or are interested in custom AI and marketing solutions, I would be happy to hear from you.
+
+Companies:
+
+- [CYP Media - Marketing Agency](https://www.cyp.media/) / [German site](https://de.cyp.media/)
+- [CYP Dev - AI & Development Agency](https://cyp.dev/)
+
+Socials:
+
+- YouTube: [KI Kurve - AI News & Tutorials (DE)](https://www.youtube.com/@KI-Kurve)
+- YouTube: [Max Weissenbaeck](https://www.youtube.com/@max.weissenbaeck)
+- Instagram: [@max.weissenbaeck](https://www.instagram.com/max.weissenbaeck/)
+- LinkedIn: [Maximilian Weissenbaeck](https://www.linkedin.com/in/maximilian-wei%C3%9Fenb%C3%A4ck/)
 
 ## License
 
