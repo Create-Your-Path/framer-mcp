@@ -4,6 +4,14 @@
   "description": "MCP server for the Framer Server API — full CMS, canvas, publishing, and more",
   "type": "module",
   "main": "dist/src/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Create-Your-Path/framer-mcp.git"
+  },
+  "homepage": "https://github.com/Create-Your-Path/framer-mcp#readme",
+  "bugs": {
+    "url": "https://github.com/Create-Your-Path/framer-mcp/issues"
+  },
   "files": [
     "dist",
     "README.md",

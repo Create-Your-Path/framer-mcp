@@ -16,20 +16,39 @@ Keep these rules in mind:
 
 ## Setup
 
+### Requirements
+
+- Node.js 22 or newer
+- A Framer project URL
+- A Framer API key for that project
+
 ### 1. Get your Framer API key
 
 Go to your Framer project → Site Settings → General → Generate API Key.
 
-### 2. Add to Claude Code
+### 2. Install the server
 
-Add to your `.mcp.json`:
+Clone this repository and build the TypeScript source:
+
+```bash
+git clone https://github.com/Create-Your-Path/framer-mcp.git
+cd framer-mcp
+npm install
+npm run build
+```
+
+### 3. Add to your MCP client
+
+For Claude Code, add this to your project `.mcp.json`:
+
+Replace `/absolute/path/to/framer-mcp` with the folder where you cloned this repository.
 
 ```json
 {
   "mcpServers": {
     "framer": {
       "command": "node",
-      "args": ["/path/to/framer-mcp/dist/bin/framer-mcp.js"],
+      "args": ["/absolute/path/to/framer-mcp/dist/bin/framer-mcp.js"],
       "env": {
         "FRAMER_PROJECT_URL": "https://framer.com/projects/YourSite--abc123",
         "FRAMER_API_KEY": "your-api-key-here"
@@ -39,10 +58,36 @@ Add to your `.mcp.json`:
 }
 ```
 
-### 3. Or run directly
+Restart your MCP client after saving the config.
+
+### 4. Or run directly
 
 ```bash
 FRAMER_PROJECT_URL="..." FRAMER_API_KEY="..." node dist/bin/framer-mcp.js
+```
+
+## Agent install prompt
+
+Copy this into your coding agent if you want it to install the MCP for you:
+
+```text
+Install the Framer MCP server from https://github.com/Create-Your-Path/framer-mcp and connect it to my MCP client.
+
+Steps:
+1. Check that Node.js 22 or newer is installed.
+2. Clone the repository into a sensible local developer tools folder.
+3. Run npm install.
+4. Run npm run build.
+5. Ask me for my Framer project URL and Framer API key if I have not already provided them.
+6. Add an MCP server named "framer" to my MCP config using:
+   command: node
+   args: ["/absolute/path/to/framer-mcp/dist/bin/framer-mcp.js"]
+   env:
+     FRAMER_PROJECT_URL: my Framer project URL
+     FRAMER_API_KEY: my Framer API key
+7. Do not commit, print, log, or expose my Framer API key.
+8. Restart or tell me to restart the MCP client.
+9. Verify the server by calling the framer_status tool.
 ```
 
 ## Tools (37)
