@@ -1,0 +1,36 @@
+{
+  "name": "framer-mcp-server",
+  "version": "0.1.0",
+  "description": "MCP server for the Framer Server API — full CMS, canvas, publishing, and more",
+  "type": "module",
+  "main": "dist/src/index.js",
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "bin": {
+    "framer-mcp": "./dist/bin/framer-mcp.js"
+  },
+  "scripts": {
+    "start": "node dist/bin/framer-mcp.js",
+    "dev": "tsx watch bin/framer-mcp.ts",
+    "build": "tsc",
+    "clean": "rm -rf dist"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.6.1",
+    "framer-api": "^0.1.1",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2"
+  },
+  "keywords": ["mcp", "framer", "server-api", "cms", "canvas"],
+  "license": "MIT"
+}
